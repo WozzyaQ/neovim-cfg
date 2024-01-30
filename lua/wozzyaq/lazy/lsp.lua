@@ -6,7 +6,9 @@ return {
         { "williamboman/mason.nvim" },
         { "williamboman/mason-lspconfig.nvim" },
         { "neovim/nvim-lspconfig" },
-
+        -- metals support
+        { "scalameta/nvim-metals" },
+        "plenary",
         -- autocompletion
         { "hrsh7th/nvim-cmp" },
         { "hrsh7th/cmp-buffer" },
@@ -42,8 +44,6 @@ return {
         require('lspconfig').lua_ls.setup({})
         require('lspconfig').gopls.setup({})
         require('lspconfig').pyright.setup({})
-        --require('lspconfig').metals.setup({})
-
 
         local cmp = require('cmp')
 
@@ -57,6 +57,27 @@ return {
                 ['<C-Space>'] = cmp.mapping.complete(),
                 ['<CR>'] = cmp.mapping.confirm({ select = false }),
             })
+
+        })
+
+        -- Metals configuration
+        local metals_config = require("metals").bare_config()
+        -- Example of settings
+        metals_config.settings = {
+            showImplicitArguments = true,
+            excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+        }
+
+        -- Based on https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/quick-recipes.md#setup-with-nvim-metals
+        -- seemingly, we need to share lsp_zero capabilities to metals config
+        metals_config.capabilities = lsp_zero.get_capabilities()
+        local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = { "scala", "sbt", "java" },
+            callback = function()
+                require("metals").initialize_or_attach(metals_config)
+            end,
+            group = nvim_metals_group,
         })
     end
 }

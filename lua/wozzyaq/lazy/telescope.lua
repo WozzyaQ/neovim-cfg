@@ -2,7 +2,6 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
         "plenary",
---        "metals",
     },
     tag = "0.1.5",
     config = function()
@@ -16,7 +15,8 @@ return {
         end, { desc = 'Telescope grep string' })
 
         local telescope = require("telescope")
-        --vim.keymap.set('n', '<leader>mc', telescope.extensions.metals.commands, { desc = 'Telescope Metals Menu' })
+        -- requires metals installed
+        vim.keymap.set('n', '<leader>mc', telescope.extensions.metals.commands, { desc = 'Telescope Metals Menu' })
     end
 
 }
