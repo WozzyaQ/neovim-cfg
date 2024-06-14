@@ -3,7 +3,9 @@ return {
     tag = "v3.x",
     dependencies = {
         -- lsp support
-        { "williamboman/mason.nvim" },
+        {
+            "williamboman/mason.nvim"
+        },
         { "williamboman/mason-lspconfig.nvim" },
         { "neovim/nvim-lspconfig" },
         -- metals support
@@ -20,6 +22,9 @@ return {
         -- snippets
         { "rafamadriz/friendly-snippets" },
         { "L3MON4D3/LuaSnip" },
+
+        -- null ls
+        { "jose-elias-alvarez/null-ls.nvim" },
     },
     config = function()
         local lsp_zero = require('lsp-zero')
@@ -35,7 +40,7 @@ return {
 
         require("mason").setup {}
         require("mason-lspconfig").setup({
-            ensure_installed = { "lua_ls", "pyright", "gopls" },
+            ensure_installed = { "lua_ls", "pyright", "gopls", "tsserver"},
             handlers = {
                 lsp_zero.default_setup,
             },
@@ -43,7 +48,12 @@ return {
 
         require('lspconfig').lua_ls.setup({})
         require('lspconfig').gopls.setup({})
-        require('lspconfig').pyright.setup({})
+        require('lspconfig').pyright.setup({
+            capabilities = lsp_zero.get_capabilities(),
+        })
+        require('lspconfig').tsserver.setup({
+            capabilities = lsp_zero.get_capabilities(),
+        })
 
         local cmp = require('cmp')
 
@@ -78,6 +88,15 @@ return {
                 require("metals").initialize_or_attach(metals_config)
             end,
             group = nvim_metals_group,
+        })
+
+        -- null ls
+        local null_ls = require("null-ls")
+
+        null_ls.setup({
+            sources = {
+                null_ls.builtins.formatting.black
+            }
         })
     end
 }
