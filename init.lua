@@ -1,3 +1,4 @@
 require("wozzyaq")
 
-vim.cmd("colorscheme nightfox")
+vim.cmd("colorscheme github_dark_tritanopia")
+vim.cmd("Copilot disable")
