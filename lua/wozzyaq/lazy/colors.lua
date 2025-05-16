@@ -1,19 +1,33 @@
 return {
-    "Mofiqul/vscode.nvim",
-    config = function()
-        vim.o.background = 'dark'
+    -- vscode.nvim configuration
+    {
+        "Mofiqul/vscode.nvim",
+        config = function()
+            require('vscode').setup({
+                transparent = true,
+                italic_comments = true,
+                color_overrides = {
+                    vscLineNumber = '#FFFFFF',
+                }
+            })
+        end
+    },
 
-        local c = require('vscode.colors').get_colors()
+    -- nightfox.nvim configuration
+    {
+        "EdenEast/nightfox.nvim",
+        config = function()
+            -- No additional setup needed unless you have specific settings for nightfox
+        end
+    },
 
-        require('vscode').setup({
-            transparent = true,
-            italic_comments = true,
-            color_overrides = {
-                vscLineNumber = '#FFFFFF',
-            }
-        })
-
-        require('vscode').load()
-    end
+    {
+        "projekt0n/github-nvim-theme",
+        config = function()
+            require('github-theme').setup({
+            })
+        end
+    },
 
 }
+

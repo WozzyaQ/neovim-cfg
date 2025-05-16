@@ -1,9 +1,9 @@
 return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-        "plenary",
+        "nvim-lua/plenary.nvim",
     },
-    tag = "0.1.5",
+    tag = "0.1.8",
     config = function()
         local builtin = require('telescope.builtin')
 
@@ -13,6 +13,8 @@ return {
         vim.keymap.set('n', '<leader>ps', function()
             builtin.grep_string({ search = vim.fn.input("Grep > ") });
         end, { desc = 'Telescope grep string' })
+        vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+        vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
         local telescope = require("telescope")
         -- requires metals installed
