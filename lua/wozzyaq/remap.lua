@@ -10,3 +10,6 @@ vim.keymap.set('n', '<leader>P', '"+P', { desc = 'Paste before cursor from clipb
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected line down" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected line up" })
 
+-- to exit terminal mode via esc
+vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { noremap = true })
+
