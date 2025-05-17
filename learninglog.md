@@ -3,6 +3,11 @@
 # Learning resources
 * [Vim Cheat Sheet](https://vim.rtorr.com/)
 
+# 2025-05-17
+* `;` and `,` to go replay forwards or backwards latest `f`, `F`, `t`, `T` movements
+* `<num>gg` OR `<num>G` go to line <num>
+    * previoulsy I was entering command mode and typing something like `:123` to jump to line 123
+
 # 2025-05-16
 * `:term` to enter terminal emulator mode
     * could be used to running something and easily copying some output
